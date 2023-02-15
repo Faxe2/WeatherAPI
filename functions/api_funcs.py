@@ -1,11 +1,6 @@
 import requests
 from typing import Tuple, List
 
-def get_message_dict(msg: str) -> dict:
-    """
-    This function returns the string msg in the dictionary format: {'Message': msg}
-    """
-    return {'Message': msg}
     
     
 def get_weather(city: str) -> Tuple[float, str, float, float, float, float]:

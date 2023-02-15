@@ -13,9 +13,9 @@ def weather_route() -> None:
     # If the 'city' header is missing or empty
     if not city_header:
         # Store the error message in the cache dictionary for this city header
-        url_cache[city_header] = functions.api_funcs.get_message_dict('Invalid City!')
+        url_cache[city_header] = jsonify({'error': 'City not found'})
         # Return the error message as a response
-        return functions.api_funcs.get_message_dict('Invalid City!')
+        return jsonify({'error': 'City not found'})
     
     # If the 'city' header is already in the cache dictionary
     if city_header in url_cache:
@@ -27,13 +27,11 @@ def weather_route() -> None:
     # If there is no weather information for the given city header
     if weather_info is None:
         # Store the error message in the cache dictionary for this city header
-        url_cache[city_header] = functions.api_funcs.get_message_dict('Invalid City!')
-        # Print the cache dictionary for debugging purposes
-        print(url_cache)
+        url_cache[city_header] = jsonify({'error': 'City not found'})
+        
         # Return the error message as a response
-        return functions.api_funcs.get_message_dict('Invalid City!')
-    # Print the cache dictionary for debugging purposes
-    print(url_cache)
+        
+        return jsonify({'error': 'City not found'})
     # Extract the weather information and store it in a dictionary
     temp, description, pressure, humidity, longitude, latitude, temp_min, temp_max = weather_info
     json_data = dict(
@@ -53,7 +51,5 @@ def weather_route() -> None:
     )
     # Cache the weather information in the cache dictionary for this city header
     url_cache[city_header] = jsonify(json_data)
-    # Print the cache dictionary for debugging purposes
-    print(url_cache)
     # Return the cached response for this city header
     return url_cache[city_header]

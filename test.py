@@ -8,7 +8,7 @@ import requests
 city = input("By: ")
 
 headers = {
-    'city': city
+    'city': 'aldasla'
 }
 
 
